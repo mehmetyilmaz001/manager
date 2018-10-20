@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { ListView } from 'react-native'
+import { ListView, View, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { employeesFetch } from '../actions'
 import _ from 'lodash';
@@ -9,44 +9,36 @@ class EmployeeList extends Component{
     
     componentWillMount(){
         this.props.employeesFetch();
-        this.createDataSource(this.props);
-    }
-
-    componentWillReceiveProps(nextProps){
-        this.createDataSource(nextProps);
-    }
-
-
-    createDataSource({ employees }){
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        }); 
-
-        this.dataSource = ds.cloneWithRows(this.props.employees)
     }
 
     renderRow(employee){
         return <ListItem employee={employee} />
     }
 
+    _keyExtractor = (item, index) => item.name;
+
     render(){
         console.log(this.props);
         
+       
         return (
-            <ListView enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow} />
+            <FlatList data={this.props.data}
+                renderItem={ ({item}) => this.renderRow(item) }
+                keyExtractor={this._keyExtractor}
+            />
+            
         )
     }
 }
 
 const mapStateToProps = state => {
-
-    const employees = _.map(state.employees, (val, uid) => {
+    console.log(state.employees)
+    const employees = _.map(state.employees.data, (val, uid) => {
         return {...val, uid}
     });
     return {
-        employees
+        data: employees,
+        loading: state.employees.loading
     }
 }
 

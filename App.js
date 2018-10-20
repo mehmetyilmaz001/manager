@@ -10,6 +10,10 @@ import LoginForm from './src/components/LoginForm'
 import Router from './src/Router';
 
 
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
+
+
 class App extends Component{
 
   componentWillMount(){
