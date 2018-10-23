@@ -15,8 +15,8 @@ class LoginForm extends Component{
     }
 
     onButtonPress(){
-        const { email, pass } = this.props;
-        this.props.loginUser({email, pass});
+        const { mail, pass } = this.props;
+        this.props.loginUser({mail, pass});
     }
 
     renderError(){
@@ -47,7 +47,7 @@ class LoginForm extends Component{
                     label="Email" 
                     placeholder="email@email.com"
                     onChangeText={this.onEmailChange.bind(this)}
-                    value={this.props.email}
+                    value={this.props.mail}
                     />
             </CardSection>
 
@@ -82,7 +82,7 @@ const styles = {
 
 const mapStateToProps  = state => {
     return {
-        email: state.auth.email,
+        mail: state.auth.mail,
         pass: state.auth.pass,
         error: state.auth.error,
         loading: state.auth.loading

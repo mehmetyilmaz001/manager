@@ -18,17 +18,17 @@ export const passChanged = (text) => {
 }
 
 
-export const loginUser = ({email, pass}) => {
+export const loginUser = ({mail, pass}) => {
     return (dispatch) => {
 
         dispatch({ type: LOGIN_USER })
 
-        firebase.auth().signInWithEmailAndPassword(email, pass)
+        firebase.auth().signInWithEmailAndPassword(mail, pass)
         .then(user => {
            logginUserSuccess(dispatch, user)
         })
         .catch(() => {
-            firebase.auth().createUserWithEmailAndPassword(email, pass)
+            firebase.auth().createUserWithEmailAndPassword(mail, pass)
             .then(user => {
                logginUserSuccess(dispatch, user)
             }).catch(() => {
